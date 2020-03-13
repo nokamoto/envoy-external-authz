@@ -22,6 +22,19 @@ services:
         cmd: client
     environment:
       GRPC_SERVER_ADDRESS: envoy:80
+      APIKEY: 648a9d5e7f9d36e3a2b00db576e96f69
+    networks:
+      - mesh
+  ng:
+    image: client
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        cmd: client
+    environment:
+      GRPC_SERVER_ADDRESS: envoy:80
+      APIKEY: badkey
     networks:
       - mesh
   envoy:
@@ -48,6 +61,7 @@ services:
       - 9001
     environment:
       GRPC_SERVER_PORT: 9001
+      APIKEY: 648a9d5e7f9d36e3a2b00db576e96f69
     networks: 
       - mesh
 networks:
