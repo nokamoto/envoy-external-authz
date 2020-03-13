@@ -12,6 +12,7 @@ import (
 
 const (
 	GrpcServerPort = "GRPC_SERVER_PORT"
+	APIKey         = "APIKEY"
 )
 
 func main() {
@@ -28,7 +29,9 @@ func main() {
 	var opts []grpc.ServerOption
 	server := grpc.NewServer(opts...)
 
-	auth.RegisterAuthorizationServer(server, &Server{})
+	auth.RegisterAuthorizationServer(server, &Server{
+		apikey: os.Getenv(APIKey),
+	})
 
 	log.Printf("ready to serve %d", port)
 

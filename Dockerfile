@@ -12,6 +12,7 @@ RUN go mod download
 ARG cmd
 
 COPY protobuf protobuf
+COPY pkg pkg
 COPY cmd/$cmd cmd/$cmd
 
 RUN go install ./cmd/$cmd

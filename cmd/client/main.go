@@ -2,8 +2,10 @@ package main
 
 import (
 	"context"
+	md "github.com/nokamoto/envoy-external-authz/pkg/metadata"
 	"github.com/nokamoto/envoy-external-authz/protobuf"
 	"google.golang.org/grpc"
+	"google.golang.org/grpc/metadata"
 	"log"
 	"os"
 	"strconv"
@@ -12,6 +14,7 @@ import (
 
 const (
 	GrpcServerAddress = "GRPC_SERVER_ADDRESS"
+	APIKey            = "APIKEY"
 )
 
 func main() {
@@ -33,7 +36,9 @@ func main() {
 
 		log.Printf("req=%v", req)
 
-		res, err := echo.Echo(context.Background(), req)
+		ctx := metadata.AppendToOutgoingContext(context.Background(), md.XMyAPIKey, os.Getenv(APIKey))
+
+		res, err := echo.Echo(ctx, req)
 
 		log.Printf("res=%v, err=%v", res, err)
 
