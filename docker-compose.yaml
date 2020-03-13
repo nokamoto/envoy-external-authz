@@ -1,0 +1,29 @@
+version: '3'
+services:
+  echo:
+    image: echo
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        cmd: echo
+    expose:
+      - 9000
+    environment:
+      GRPC_SERVER_PORT: 9000
+    networks: 
+      - mesh
+  ok:
+    image: client
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        cmd: client
+    environment:
+      GRPC_SERVER_ADDRESS: echo:9000
+    networks:
+      - mesh
+
+networks:
+  mesh: {}
