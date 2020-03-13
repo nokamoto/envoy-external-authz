@@ -37,5 +37,18 @@ services:
       - 8001:8001
     networks:
       - mesh
+  authz:
+    image: authz
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        cmd: authz
+    expose:
+      - 9001
+    environment:
+      GRPC_SERVER_PORT: 9001
+    networks: 
+      - mesh
 networks:
   mesh: {}
