@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+option go_package = "github.com/nokamoto/envoy-external-authz/protobuf";
+
+message EchoRequest {
+  string value = 1;
+}
+
+message EchoResponse {
+  string value = 1;
+}
+
+service Echo {
+  rpc Echo(EchoRequest) returns (EchoResponse);
+}
