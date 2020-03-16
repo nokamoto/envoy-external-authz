@@ -52,7 +52,7 @@ func (s *Server) Check(ctx context.Context, req *auth.CheckRequest) (*auth.Check
 					{
 						Header: &core.HeaderValue{
 							Key:   metadata.XMyUsername,
-							Value: "nokamoto",
+							Value: "foo",
 						},
 						Append: &wrappers.BoolValue{
 							Value: false,
